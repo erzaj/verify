@@ -81,10 +81,15 @@ const functionVeryf = (url) => new Promise((resolve, reject) => {
           const domain = "aminudin.me";
           const emailUname = array[ury];
           console.log(`Mencoba verifikasi dengan email: ${emailUname}@${domain}`)
+          console.log(`Sedang mengambil link verifikasi`)
           const getmsg = await functionGetMessages(domain, emailUname);
-          console.log(getmsg);
+          console.log(`Link: ${getmsg}`)
           const verif = await functionVeryf(getmsg)
-          console.log(verif);
+          console.log(verif)
+          // console.log(`Email ${emailUname}@${domain} berhasil diverifikasi`);
+          console.log("");
+          console.log("");
+        
           // await delay(5000);
 
         } catch (e) {
