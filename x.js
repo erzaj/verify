@@ -3,6 +3,7 @@ const cheerio = require("cheerio");
 const delay = require("delay");
 const readline = require("readline-sync");
 const { URLSearchParams } = require("url");
+// const colors = require("../lib/colors");
 const moment = require("moment");
 const ua = require("useragent-generator");
 const fs = require("fs");
@@ -65,30 +66,21 @@ const functionVeryf = (url) => new Promise((resolve, reject) => {
   );
 
 
-  await delay(1000);
+  await delay(2000);
   await fs.readFile(file, async function(err, data) {
     if (err) throw err;
     const array = data
       .toString()
       .replace(/\r\n|\r|\n/g, " ")
       .split(" ");
-      //console.log(array);
+      console.log(array);
 
     for (let ury in array) {
       if (array[ury].length !== 0 && array[ury].length > 11) {
         try {
           await delay(DelaY);
-          // console.log("ASU");
           const domain = "aminudin.me";
           const emailUname = array[ury];
-
-
-
-
-
-          // console.log(emailUname);
-          // const emailUname = await replaceString(array[ury], "https://generator.email/flickshot.id/", "");
-          // console.log(emailUname);
           console.log(`Mencoba verifikasi dengan email: ${emailUname}@${domain}`)
           const getmsg = await functionGetMessages(domain, emailUname);
           // console.log(getmsg);
