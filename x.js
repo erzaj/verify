@@ -5,7 +5,6 @@ const readline = require("readline-sync");
 const { URLSearchParams } = require("url");
 // const colors = require("../lib/colors");
 const moment = require("moment");
-const ua = require("useragent-generator");
 const fs = require("fs");
 
 const DelaY = "1000";
@@ -73,7 +72,7 @@ const functionVeryf = (url) => new Promise((resolve, reject) => {
       .toString()
       .replace(/\r\n|\r|\n/g, " ")
       .split(" ");
-      console.log(array);
+//      console.log(array);
 
     for (let ury in array) {
       if (array[ury].length !== 0 && array[ury].length > 11) {
@@ -83,8 +82,7 @@ const functionVeryf = (url) => new Promise((resolve, reject) => {
           const emailUname = array[ury];
           console.log(`Mencoba verifikasi dengan email: ${emailUname}@${domain}`)
           const getmsg = await functionGetMessages(domain, emailUname);
-          // console.log(getmsg);
-          //const regist = await functionRegister(array[ury]);
+          console.log(getmsg);
           const verif = await functionVeryf(getmsg)
           console.log(verif);
           // await delay(5000);
