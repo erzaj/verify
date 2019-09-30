@@ -1,13 +1,17 @@
-const fetch = require('node-fetch');
-const readline = require('readline-sync');
-const uuid = require('uuid/v4');
-const cheerio = require('cheerio');
-const moment = require('moment');
-const chalk = require('chalk');
-const delay = require('delay');
-const replaceString = require("replace-string")
-const fs = require('async-file');
+const fetch = require("node-fetch");
+const cheerio = require("cheerio");
+const delay = require("delay");
+const readline = require("readline-sync");
+const { URLSearchParams } = require("url");
+const moment = require("moment");
+const ua = require("useragent-generator");
+const fs = require("fs");
 
+const DelaY = "1000";
+const file = readline.question("Input your file (Ex: x.txt): ")
+
+console.log("");
+console.log("");
 
 function randstr(length) {
     result = '';
@@ -18,7 +22,6 @@ function randstr(length) {
     }
     return result;
 }
-
 
 const functionGetMessages = (domain, emailUname) =>
   new Promise((resolve, reject) => {
@@ -56,21 +59,48 @@ const functionVeryf = (url) => new Promise((resolve, reject) => {
         .catch(err => reject(err));
 });
 
-
 (async () => {
-    try{
-      
-    const domain = "aminudin.me ";
-    const fuck = readline.question("Your link: ");
-    const emailUname = replaceString(fuck, "https://generator.email/flickshot.id/", "");
-    const getmsg = await functionGetMessages(domain, emailUname);
-    console.log(getmsg);
-    const verif = await functionVeryf(getmsg)
-    console.log(verif);
-    
-    
-    }catch(e){
-        console.log(e) 
-    }
+  console.log(
+    "[" + " " + moment().format("HH:mm:ss") + " " + "]" + " " + "Starting ...."
+  );
 
+
+  await delay(1000);
+  await fs.readFile(file, async function(err, data) {
+    if (err) throw err;
+    const array = data
+      .toString()
+      .replace(/\r\n|\r|\n/g, " ")
+      .split(" ");
+      //console.log(array);
+
+    for (let ury in array) {
+      if (array[ury].length !== 0 && array[ury].length > 11) {
+        try {
+          await delay(DelaY);
+          // console.log("ASU");
+          const domain = "aminudin.me";
+          const emailUname = array[ury];
+
+
+
+
+
+          // console.log(emailUname);
+          // const emailUname = await replaceString(array[ury], "https://generator.email/flickshot.id/", "");
+          // console.log(emailUname);
+          console.log(`Mencoba verifikasi dengan email: ${emailUname}@${domain}`)
+          const getmsg = await functionGetMessages(domain, emailUname);
+          // console.log(getmsg);
+          //const regist = await functionRegister(array[ury]);
+          const verif = await functionVeryf(getmsg)
+          console.log(verif);
+          // await delay(5000);
+
+        } catch (e) {
+          
+        }
+      }
+    }
+  });
 })();
